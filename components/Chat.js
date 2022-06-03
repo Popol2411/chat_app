@@ -4,9 +4,6 @@ import { View, StyleSheet, Pressable, Text } from 'react-native';
 export default class Chat extends React.Component {
   render() {
 
-    let name= this.props.route.params.name;
-    this.props.navigation.setOptions({ title: name});
-
     let bgColor = this.props.route.params.bgColor;
 
     return (
@@ -21,6 +18,11 @@ export default class Chat extends React.Component {
       </View>
     );
   }
+
+  componentDidMount() {
+    let { name } = this.props.route.params;
+    this.props.navigation.setOptions({ title: name });
+  } 
 }
 
 const styles = StyleSheet.create({
