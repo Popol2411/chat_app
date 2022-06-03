@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Pressable, Text } from 'react-native';
+import { View, StyleSheet, Pressable, Text, Platform, KeyboardAvoidingView } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat';
 
 export default class Chat extends React.Component {
@@ -51,10 +51,11 @@ render() {
         messages={this.state.messages}
         onSend={messages => this.onSend(messages)}
         user={{_id: 1, }}/>
+     { Platform.OS === 'android' ? <KeyboardAvoidingView behavior="height" /> : null}
       <Pressable
       onPress={() => this.props.navigation.navigate('Start')}>
         <Text style={styles.startButton}>Go To Start</Text>
-      </Pressable>
+      </Pressable>     
       </View>
     </View>
   );
@@ -68,10 +69,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   startButton: {
-    paddingTop: 35,
     fontSize: 16,
-    minHeight: 100,
+    minHeight: 50,
     alignSelf: 'center',
+    backgroundColor: 'lightblue',
+    borderRadius: 20,
+    textAlignVertical: 'center',
   },
   giftedChat: {
     color: '#000',
