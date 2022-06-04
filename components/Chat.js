@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, StyleSheet, Pressable, Text, Platform, KeyboardAvoidingView } from 'react-native';
-import { GiftedChat } from 'react-native-gifted-chat';
+import { View, StyleSheet, Pressable, Text, Platform, KeyboardAvoidingView, } from 'react-native';
+import { GiftedChat, Bubble } from 'react-native-gifted-chat';
 
 export default class Chat extends React.Component {
 
@@ -20,13 +20,19 @@ export default class Chat extends React.Component {
       messages: [
         {
           _id: 1,
-          text: 'Hello developer',
+          text: 'Hello ' + this.props.route.params.name,
           createdAt: new Date(),
           user: {
             _id: 2,
             name: 'React Native',
             avatar: 'https://placeimg.com/140/140/any',
           },
+        },
+       {
+          _id: 2,
+          text: 'Hello ' + this.props.route.params.name + ' and welcome to the chat!',
+          createdAt: new Date(),
+          system: true,
         },
       ],
     });
@@ -39,6 +45,19 @@ export default class Chat extends React.Component {
     }));
   }
 
+  renderBubble(props) {
+    return (
+      <Bubble
+        {...props}
+        wrapperStyle={{
+          right: {
+            backgroundColor: 'orange'
+          }
+        }}
+      />
+    );
+  }
+
 render() {
 
   let bgColor = this.props.route.params.bgColor;
@@ -48,6 +67,7 @@ render() {
       <View style={{ backgroundColor: bgColor, width: '100%', height: '100%' }} >        
       <GiftedChat
         style={styles.giftedChat}
+        renderBubble={this.renderBubble.bind(this)}
         messages={this.state.messages}
         onSend={messages => this.onSend(messages)}
         user={{_id: 1, }}/>
