@@ -1,9 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Pressable, Text, Platform, KeyboardAvoidingView, } from 'react-native';
 import { GiftedChat, Bubble } from 'react-native-gifted-chat';
-
-const firebase = require('firebase');
-require('firebase/firestore');
+import firebase from "firebase";
 
 export default class Chat extends React.Component {
 
@@ -59,7 +57,6 @@ export default class Chat extends React.Component {
      // Update user
       this.setState({
         uid: user.uid,
-        messages: [],
         user: {
           _id: user.uid,
           name: name,
@@ -105,7 +102,7 @@ export default class Chat extends React.Component {
      });
     });
     this.setState({
-      message: messages,
+      messages: messages,
     });
   };
 
