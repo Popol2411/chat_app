@@ -160,7 +160,10 @@ render() {
         renderBubble={this.renderBubble.bind(this)}
         messages={this.state.messages}
         onSend={messages => this.onSend(messages)}
-        user={{_id: 1, }}/>
+        user={{
+          _id: this.state.user._id,
+          name: this.state.name,  
+         }}/>
      { Platform.OS === 'android' ? <KeyboardAvoidingView behavior="height" /> : null}
       <Pressable
       onPress={() => this.props.navigation.navigate('Start')}>
