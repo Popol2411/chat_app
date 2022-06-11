@@ -162,7 +162,8 @@ render() {
         onSend={messages => this.onSend(messages)}
         user={{
           _id: this.state.user._id,
-          name: this.state.name,  
+          name: this.state.name,
+          avatar: data.user.avatar,  
          }}/>
      { Platform.OS === 'android' ? <KeyboardAvoidingView behavior="height" /> : null}
       <Pressable
