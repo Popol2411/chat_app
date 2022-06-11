@@ -159,11 +159,12 @@ render() {
         style={styles.giftedChat}
         renderBubble={this.renderBubble.bind(this)}
         messages={this.state.messages}
+        showUserAvatar='true'
         onSend={messages => this.onSend(messages)}
         user={{
           _id: this.state.user._id,
           name: this.state.name,
-          avatar: data.user.avatar,  
+          avatar: this.state.avatar,  
          }}/>
      { Platform.OS === 'android' ? <KeyboardAvoidingView behavior="height" /> : null}
       <Pressable
