@@ -14,7 +14,7 @@ export default class Chat extends React.Component {
       user: {
         _id: '',
         name: '',
-        avatar: '',
+        avatar: 'https://placeimg.com/140/140/any',
       }
     };
 
@@ -159,7 +159,7 @@ render() {
         style={styles.giftedChat}
         renderBubble={this.renderBubble.bind(this)}
         messages={this.state.messages}
-        showUserAvatar='true'
+        showUserAvatar= {true}
         onSend={messages => this.onSend(messages)}
         user={{
           _id: this.state.user._id,
