@@ -2,6 +2,8 @@ import React from 'react';
 import { View, StyleSheet, Pressable, Text, Platform, KeyboardAvoidingView, } from 'react-native';
 import { GiftedChat, Bubble } from 'react-native-gifted-chat';
 import firebase from "firebase";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import NetInfo from '@react-native-community/netinfo';
 
 export default class Chat extends React.Component {
 
@@ -36,6 +38,42 @@ export default class Chat extends React.Component {
     }
   }
 
+  // Retrieve messages from async storage
+  async getMessages() {
+    let messages = '';
+    try {
+      messages = await AsyncStorage.getItem('messages') || [];
+      this.setState({
+        messages: JSON.parse(messages)
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  // Save messages to async storage
+
+  async saveMessages() {
+    try {
+      await AsyncStorage.setItem('messages', JSON.stringify(this.state.messages));
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  // Delete messages from async storage
+
+  async deleteMessages() {
+    try {
+      await AsyncStorage.removeItem('messages');
+      this.setState({
+        messages: []
+      })
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
    componentDidMount() {
 
     // Get prop username from start screen
@@ -44,6 +82,16 @@ export default class Chat extends React.Component {
     if (name === '') name = 'anonymous user'
     // Set title to username
     this.props.navigation.setOptions({ title: name })
+
+    // 
+
+    NetInfo.fetch().then(connection => {
+      if (connection.isConnected) {
+        console.log('online');
+      } else {
+        console.log('offline');
+      }
+    });
 
     // Database reference
     this.referenceChatMessages = firebase.firestore().collection("messages");
@@ -127,7 +175,7 @@ export default class Chat extends React.Component {
           messages: GiftedChat.append(previousState.messages, messages),
         }),
         () => {
-          this.addMessage()
+          this.saveMessages()
         }
       )
     }
@@ -146,6 +194,19 @@ export default class Chat extends React.Component {
         }}
       />
     );
+  }
+
+  // Chat input field is hidden if the user is not connected
+
+  renderInputToolbar(props) {
+    if (this.state.isConnected == false) {
+    } else {
+      return(
+        <InputToolbar
+        {...props}
+        />
+      );
+    }
   }
 
 render() {
