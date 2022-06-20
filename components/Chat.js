@@ -88,6 +88,29 @@ export default class Chat extends React.Component {
     // Set title to username
     this.props.navigation.setOptions({ title: name })
 
+    
+    // Authentication events
+    this.authUnsubscribe = firebase.auth().onAuthStateChanged((user) => {
+      if (!user) {
+        firebase.auth().signInAnonymously();
+      }
+     // Update user
+      this.setState({
+        uid: user.uid,
+        user: {
+          _id: user.uid,
+          name: name,
+          avatar: 'https://i.pravatar.cc/150?u=${user.uid}',
+        },
+      });
+
+      // Referencing messages of current user
+      this.refMsgsUser = firebase
+      .firestore()
+      .collection('messages')
+      .where('uid', '==', user.uid)
+    })
+
     // Check if user is online
 
     NetInfo.fetch().then((connection) => {
@@ -101,27 +124,6 @@ export default class Chat extends React.Component {
             .orderBy('createdAt', 'desc')
             .onSnapshot(this.onCollectionUpdate)
 
-    // Authentication events
-    this.authUnsubscribe = firebase.auth().onAuthStateChanged((user) => {
-      if (!user) {
-        firebase.auth().signInAnonymously();
-      }
-     // Update user
-      this.setState({
-        uid: user.uid,
-        user: {
-          _id: user.uid,
-          name: name,
-          avatar: 'https://placeimg.com/140/140/any',
-        },
-      });
-
-      // Referencing messages of current user
-      this.refMsgsUser = firebase
-      .firestore()
-      .collection('messages')
-      .where('uid', '==', this.state.uid)
-    })
 
         // save messages if user is online
         this.saveMessages()
