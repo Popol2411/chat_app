@@ -22,6 +22,10 @@ export default class Start extends React.Component {  //the "Start" component is
     green: '#B9C6AE',
   };
 
+  renderCustomActions = (props) => {
+    return <CustomActions {...props} />;
+  };
+
   render() {
     return (
       <View style={styles.container}> 
