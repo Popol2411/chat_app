@@ -79,13 +79,8 @@ export default class CustomActions extends React.Component {
 
   // function when user presses the action button
   onActionPress = () => {
-    const options = [
-      'Choose From Library',
-      'Take Picture',
-      'Send Location',
-      'Cancel',
-    ]
-    const cancelButtonIndex = options.length - 1
+    const options = ['Choose From Library', 'Take Picture', 'Send Location', 'Cancel'];
+    const cancelButtonIndex = options.length - 1;
     this.context.actionSheet().showActionSheetWithOptions(
       {
         options,
@@ -94,18 +89,18 @@ export default class CustomActions extends React.Component {
       async (buttonIndex) => {
         switch (buttonIndex) {
           case 0:
-            console.log('user wants to pick an image')
-            return this.pickImage()
+            console.log('user wants to pick an image');
+            return;
           case 1:
-            console.log('user wants to take a photo')
-            return this.takePhoto()
+            console.log('user wants to take a photo');
+            return;
           case 2:
-            console.log('user wants to get their location')
-            return this.getLocation()
+            console.log('user wants to get their location');
+          default:
         }
-      }
-    )
-  }
+      },
+    );
+  };
 
   // function to upload image to firebase
   imageUpload = async (uri) => {
