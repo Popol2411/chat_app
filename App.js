@@ -8,10 +8,10 @@ import { createStackNavigator } from '@react-navigation/stack'; //Stack Navigato
 const Stack = createStackNavigator();
 
 export default class App extends Component {
- /* constructor(props) {
+  constructor(props) {
     super(props);
     this.state = { text: "" };
-  } */
+  } 
 
 
 render() { //render contains all parts which will be displayed to the user

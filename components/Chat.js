@@ -23,6 +23,8 @@ export default class Chat extends React.Component {
         avatar: 'https://placeimg.com/140/140/any',
       },
       isConnected: false,
+      image: null,
+      location: null
     }
 
     // Firebase configuration
@@ -100,6 +102,7 @@ export default class Chat extends React.Component {
       }
      // Update user
       this.setState({
+        messages: [],
         uid: user.uid,
         user: {
           _id: user.uid,
@@ -271,6 +274,7 @@ render() {
         messages={this.state.messages}
         showUserAvatar= {true}
         renderActions={this.renderCustomActions}
+        renderCustomView={this.renderCustomView}
         onSend={messages => this.onSend(messages)}
         user={{
           _id: this.state.user._id,

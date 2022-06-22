@@ -1,146 +1,147 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
-import * as Location from 'expo-location';
-import firebase from 'firebase';
-import 'firebase/firestore';
+import PropTypes from 'prop-types'
+import React from 'react'
+import * as Permissions from 'expo-permissions'
+import * as ImagePicker from 'expo-image-picker'
+import * as Location from 'expo-location'
+import 'firebase/firestore'
+import firebase from 'firebase'
+
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 export default class CustomActions extends React.Component {
-  // Allow user to pick image from photo library
+  // function to select an image from the gallery
+
   pickImage = async () => {
-    /// Permission to access library
-    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    const { status } = await Permissions.askAsync(Permissions.MEDIA_LIBRARY)
+
     try {
       if (status === 'granted') {
         let result = await ImagePicker.launchImageLibraryAsync({
           mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        }).catch((error) => {
-          console.error(error);
-        });
+        }).catch((error) => console.log(error))
+
         if (!result.cancelled) {
-          const imageUrl = await this.uploadImage(result.uri);
-          this.props.onSend({ image: imageUrl });
+          const imageUrl = await this.imageUpload(result.uri)
+          this.props.onSend({ image: imageUrl })
         }
       }
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
-  // Allow user take photo
+  // function to take a photo from the camera
   takePhoto = async () => {
-    //permission to access camera and library
-    const { status } = await ImagePicker.requestCameraPermissionsAsync();
+    const { status } = await Permissions.askAsync(
+      Permissions.CAMERA,
+      Permissions.MEDIA_LIBRARY
+    )
+
     try {
       if (status === 'granted') {
         let result = await ImagePicker.launchCameraAsync({
-          mediaTypes: ImagePicker.MediaTypeOptions.All,
-        }).catch((error) => {
-          console.error(error);
-        });
+          mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        }).catch((error) => console.log(error))
+
         if (!result.cancelled) {
-          const imageUrl = await this.uploadImage(result.uri);
-          this.props.onSend({ image: imageUrl });
+          const imageUrl = await this.imageUpload(result.uri)
+          this.props.onSend({ image: imageUrl })
         }
       }
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
-  // Allow users to get their location by using GPS
+  // function to get user's location
   getLocation = async () => {
-    // Permission to access user location
-    const { status } = await Location.requestForegroundPermissionsAsync();
+    const { status } = await Permissions.askAsync(
+      Permissions.LOCATION_FOREGROUND
+    )
     try {
       if (status === 'granted') {
-        let result = await Location.getCurrentPositionAsync({}).catch(
-          (error) => {
-            console.error(error);
-          }
-        );
-        // Send latitude and longitude to locate the position on the map
-        if (result) {
+        let location = await Location.getCurrentPositionAsync({}).catch(
+          (error) => console.log(error)
+        )
+        if (location) {
           this.props.onSend({
             location: {
-              longitude: result.coords.longitude,
-              latitude: result.coords.latitude,
+              latitude: location.coords.latitude,
+              longitude: location.coords.longitude,
             },
-          });
+          })
         }
       }
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
-    // Function to handle communication features
-    onActionPress = () => {
-      const options = [
-        'Choose from Library',
-        'Take Photo',
-        'Send Location',
-        'Cancel',
-      ];
-      const cancelButtonIndex = options.length - 1;
-      this.context.actionSheet().showActionSheetWithOptions(
-        {
-          options,
-          cancelButtonIndex,
-        },
-        async (buttonIndex) => {
-          switch (buttonIndex) {
-            case 0:
-              console.log('user wants to pick an image');
-              return this.pickImage();
-            case 1:
-              console.log('user wants to take a photo');
-              return this.takePhoto();
-            case 2:
-              console.log('user wants to get their location');
-              return this.getLocation();
-          }
+  // function when user presses the action button
+  onActionPress = () => {
+    const options = [
+      'Choose From Library',
+      'Take Picture',
+      'Send Location',
+      'Cancel',
+    ]
+    const cancelButtonIndex = options.length - 1
+    this.context.actionSheet().showActionSheetWithOptions(
+      {
+        options,
+        cancelButtonIndex,
+      },
+      async (buttonIndex) => {
+        switch (buttonIndex) {
+          case 0:
+            console.log('user wants to pick an image')
+            return this.pickImage()
+          case 1:
+            console.log('user wants to take a photo')
+            return this.takePhoto()
+          case 2:
+            console.log('user wants to get their location')
+            return this.getLocation()
         }
-      );
-    };
+      }
+    )
+  }
 
-  // Store uploaded image to firebase as blob
-  uploadImage = async (uri) => {
+  // function to upload image to firebase
+  imageUpload = async (uri) => {
     const blob = await new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
+      const xhr = new XMLHttpRequest()
       xhr.onload = function () {
-        resolve(xhr.response);
-      };
+        resolve(xhr.response)
+      }
       xhr.onerror = function (e) {
-        console.log(e);
-        reject(new TypeError('Network request failed'));
-      };
-      xhr.responseType = 'blob';
-      xhr.open('GET', uri, true);
-      xhr.send(null);
-    });
+        console.log(e)
+        reject(new TypeError('Network request failed'))
+      }
+      xhr.responseType = 'blob'
+      xhr.open('GET', uri, true)
+      xhr.send(null)
+    })
 
-    const imageNameBefore = uri.split('/');
-    const imageName = imageNameBefore[imageNameBefore.length - 1];
+    const imageNameBefore = uri.split('/')
+    const imageName = imageNameBefore[imageNameBefore.length - 1]
 
-    const ref = firebase.storage().ref().child(`images/${imageName}`);
+    const ref = firebase.storage().ref().child(`images/${imageName}`)
+    const snapshot = await ref.put(blob)
 
-    const snapshot = await ref.put(blob);
+    blob.close()
 
-    blob.close();
-
-    return await snapshot.ref.getDownloadURL();
-  };
+    return await snapshot.ref.getDownloadURL()
+  }
 
   render() {
     return (
       <TouchableOpacity style={[styles.container]} onPress={this.onActionPress}>
-        <View style={styles.wrapper}>
-          <Text style={[styles.iconText]}>+</Text>
+        <View style={[styles.wrapper, this.props.wrapperStyle]}>
+          <Text style={[styles.iconText, this.props.iconTextStyle]}>+</Text>
         </View>
       </TouchableOpacity>
-    );
+    )
   }
 }
 
@@ -164,8 +165,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     textAlign: 'center',
   },
-});
+})
 
 CustomActions.contextTypes = {
   actionSheet: PropTypes.func,
-};
+}
