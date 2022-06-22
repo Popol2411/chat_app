@@ -1,16 +1,16 @@
-import PropTypes from 'prop-types'
-import React from 'react'
-import * as Permissions from 'expo-permissions'
-import * as ImagePicker from 'expo-image-picker'
-import * as Location from 'expo-location'
-import 'firebase/firestore'
-import firebase from 'firebase'
+import PropTypes from 'prop-types';
+import React from 'react';
+import * as Permissions from 'expo-permissions';
+import * as ImagePicker from 'expo-image-picker';
+import * as Location from 'expo-location';
+import 'firebase/firestore';
+import firebase from 'firebase';
 
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 export default class CustomActions extends React.Component {
-  // function to select an image from the gallery
 
+  // function to select an image from the gallery
   pickImage = async () => {
     const { status } = await Permissions.askAsync(Permissions.MEDIA_LIBRARY)
 

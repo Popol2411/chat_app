@@ -13,7 +13,6 @@ export default class App extends Component {
     this.state = { text: "" };
   } 
 
-
 render() { //render contains all parts which will be displayed to the user
   return (
     <NavigationContainer> 
