@@ -16,11 +16,12 @@ export default class Chat extends React.Component {
     this.state = {
       messages: [],
       uid: 0,
-      loggedInText: 'Please wait, you are getting logged in',
       user: {
         _id: '',
         name: '',
-        avatar: 'https://placeimg.com/140/140/any',
+        avatar: '',
+        image: null,
+        location: null,
       },
       isConnected: false,
       image: null,
@@ -183,6 +184,8 @@ export default class Chat extends React.Component {
           name: data.user.name,
           avatar: data.user.avatar,
         },
+        image: data.image || null,
+        location: data.location || null,
      });
     });
     this.setState({
