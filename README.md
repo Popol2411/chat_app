@@ -1,4 +1,4 @@
-# chat-app
+# chat_app
 
 React Native Mobile Chat App
 
