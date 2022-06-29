@@ -6,6 +6,7 @@ import { NavigationContainer } from '@react-navigation/native'; //The Navigation
 import { createStackNavigator } from '@react-navigation/stack'; //Stack Navigator provides a way for the app to transition between screens where each new screen is placed on top of a stack.
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+
 const Stack = createStackNavigator();
 
 export default class App extends Component {
