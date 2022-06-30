@@ -101,7 +101,6 @@ const styles = StyleSheet.create({
     marginTop: 100,
   },
   welcomeBox: {
-    marginTop: 300,
     alignSelf: 'center',
     backgroundColor: 'white',
     flexDirection: 'column',
