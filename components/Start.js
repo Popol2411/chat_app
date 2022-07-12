@@ -31,7 +31,8 @@ export default class Start extends React.Component {  //the "Start" component is
       <Text style={styles.title}>Welcome to the Chat App</Text>
 
       <View style={styles.welcomeBox}>
-        <View style={styles.userWelcome}>
+
+      <View style={styles.userWelcome}>
         
         <TextInput
         style={styles.userNameInput}
@@ -39,7 +40,6 @@ export default class Start extends React.Component {  //the "Start" component is
         value={this.state.name} /*since the TextInput field also has a "value", it´s value will become the new name set as a state*/
         placeholder="Type your name here..."/> 
       </View>
-
 
       <View style={styles.colorBox}>
             <Text style={styles.colorText}>Choose Your Background Color:</Text>
@@ -75,8 +75,6 @@ export default class Start extends React.Component {  //the "Start" component is
             >
               <Text style={styles.buttonText}>Start Chatting</Text>
             </Pressable>
-
-
         </View>
         </ImageBackground>
       </View>
@@ -87,8 +85,13 @@ export default class Start extends React.Component {  //the "Start" component is
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
   },
+image: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+},
   icon: {
     width: 15,
     height: 15,
@@ -111,7 +114,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },  
   userWelcome: {
-    backgroundColor: 'white',
+    backgroundColor: 'lightgreen',
     flexGrow: 1,
     flexShrink: 0,
     flexDirection: 'column',
@@ -151,21 +154,21 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 25,
-    marginRight: 10,
+    marginRight: 15,
   },
   color2: {
     backgroundColor: '#474056',
     width: 50,
     height: 50,
     borderRadius: 25,
-    marginRight: 10,
+    marginRight: 15,
   },
   color3: {
     backgroundColor: '#8A95A5',
     width: 50,
     height: 50,
     borderRadius: 25,
-    marginRight: 10,
+    marginRight: 15,
   },
   color4: {
     backgroundColor: '#B9C6AE',
