@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, TextInput, StyleSheet, ImageBackground, TouchableOpacity, Pressable } from 'react-native'; //all used components must be imported in order for the app to work and be displayed. If one of these is missing, the app won´t display!
 
-
 const image = require('../assets/Background_Image.png');
 
 export default class Start extends React.Component {  //the "Start" component is being exported. Since it is a part of a React component, we add "extends React.Component"
@@ -25,6 +24,7 @@ export default class Start extends React.Component {  //the "Start" component is
 
   render() {
     return (
+      
       <View style={styles.container}> 
       <ImageBackground source={image} resizeMode="cover" style={styles.image}>
 
@@ -76,6 +76,7 @@ export default class Start extends React.Component {  //the "Start" component is
               <Text style={styles.buttonText}>Start Chatting</Text>
             </Pressable>
         </View>
+        
         </ImageBackground>
       </View>
     );
