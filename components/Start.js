@@ -112,7 +112,7 @@ image: {
     alignItems: 'center',
     height: '44%',
     width: '88%',
-    padding: 20,
+    padding: 15,
   },  
   userWelcome: {
     backgroundColor: 'white',
@@ -120,6 +120,8 @@ image: {
     flexShrink: 0,
     flexDirection: 'column',
     width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   userNameInput: {
     fontSize: 16,
