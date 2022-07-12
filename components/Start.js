@@ -121,7 +121,6 @@ image: {
     flexDirection: 'column',
     width: '100%',
     justifyContent: 'center',
-    alignItems: 'center',
   },
   userNameInput: {
     fontSize: 16,
