@@ -106,11 +106,6 @@ export default class CustomActions extends React.Component {
     }
   }
 
-
-  //When you press the '+' button
-
-
-
   onActionPress = () => {
     const options = ['Choose From Library', 'Take Picture', 'Send Location', 'Cancel'];
     const cancelButtonIndex = options.length - 1;
@@ -122,13 +117,10 @@ export default class CustomActions extends React.Component {
       async (buttonIndex) => {
         switch (buttonIndex) {
           case 0:
-            console.log('user wants to pick an image');
             return this.pickImage();
-          case 1:
-            console.log('user wants to take a photo');
+          case 1:            
             return this.takePhoto();
-          case 2:
-            console.log('user wants to get their location');
+          case 2:           
             return this.getLocation();
         }
       },
