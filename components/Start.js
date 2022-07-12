@@ -115,7 +115,7 @@ image: {
     padding: 20,
   },  
   userWelcome: {
-    backgroundColor: 'lightgreen',
+    backgroundColor: 'white',
     flexGrow: 1,
     flexShrink: 0,
     flexDirection: 'column',
