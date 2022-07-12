@@ -108,12 +108,11 @@ image: {
     alignSelf: 'center',
     backgroundColor: 'white',
     flexDirection: 'column',
-    justifyContent: 'center',
     alignItems: 'center',
     height: '44%',
     width: '88%',
     padding: 15,
-  },  
+  },    
   userWelcome: {
     backgroundColor: 'white',
     flexGrow: 1,
