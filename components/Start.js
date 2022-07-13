@@ -108,7 +108,7 @@ image: {
     backgroundColor: 'white',
     flexDirection: 'column',
     alignItems: 'center',
-    height: auto,
+    height: 'auto',
     width: '88%',
     padding: 15,
   },    
