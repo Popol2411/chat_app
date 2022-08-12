@@ -70,7 +70,7 @@ Chat App was built for mobile devices using React Native. The app provides users
 
 Download the repository on your machine 
 ```
-https://github.com/Popol2411/chat_app.git
+[(https://github.com/Popol2411/chat_app.git](https://github.com/Popol2411/chat_app.git)
 ```
 
 ## :rocket: Live Demo
