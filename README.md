@@ -32,11 +32,11 @@ Chat App was built for mobile devices using React Native. The app provides users
  
 - React Native
 
-- Gifted Chat
+- [Gifted Chat](https://github.com/FaridSafi/react-native-gifted-chat)
 
-- Expo
+- [Expo](https://expo.dev/)
 
-- Google Firestore
+- Google [Firestore](https://firebase.google.com/docs/firestore/quickstart)
 
 ## :page_with_curl: Technical Requirements
 
