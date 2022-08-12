@@ -72,7 +72,7 @@ Download the repository on your machine
 ```
 https://github.com/Popol2411/chat_app.git
 ```
-Install depedencies
+Install dependencies
 ```
 npm install
 ```
