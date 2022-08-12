@@ -70,8 +70,21 @@ Chat App was built for mobile devices using React Native. The app provides users
 
 Download the repository on your machine 
 ```
-[https://github.com/Popol2411/chat_app.git](https://github.com/Popol2411/chat_app.git)
+https://github.com/Popol2411/chat_app.git
 ```
+Install depedencies
+```
+npm install
+```
+Install Expo globally 
+```
+npm install --global expo-cli.
+```
+To start the app, run
+```
+expo start or npm start
+```
+To run the app on a device, install an emulator or expo go on your smartphone.
 
 ## :rocket: Live Demo
 
