@@ -80,9 +80,9 @@ Install Expo globally
 ```
 npm install --global expo-cli
 ```
-Run the app
+Run the Expo server
 ```
-expo start or npm start
+expo start
 ```
 To run the app on a device, install an emulator or [Expo Go](https://expo.dev/client) on your smartphone.
 
